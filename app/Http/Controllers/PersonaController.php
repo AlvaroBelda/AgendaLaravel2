@@ -8,19 +8,19 @@ use App\Models\Categoria;
 
 class PersonaController extends Controller
 {
-    public function listadoPersonas(){
+    public function index(){
 
-        $personas = Persona::all();
-        return view('/listadoPersonas', compact('personas'));
+        $personas = Persona::orderBy('nombre')->get();
+        return view('listadoPersonas', compact('personas'));
     }
 
-    public function anadir(){
+    public function create(){
         $categorias = Categoria::all();
         $personas = Persona::all();
-        return view('/anadirPersona', compact('categorias', 'personas'));
+        return view('anadirPersona', compact('categorias', 'personas'));
     }
 
-    public function crear(Request $request){
+    public function store(Request $request){
 
         $valorEstrella = $request->estrella;
 
@@ -37,25 +37,23 @@ class PersonaController extends Controller
         $persona->telefono      = $request->telefono;
         $persona->categoria_id  = $request->categoria_id;
         $persona->save();
-        return redirect('listadoPersonas');
+        return redirect('personas');
     }
 
-    public function editar(Persona $persona)
+    public function show(Persona $persona){
+
+        return view('showPersona', compact('persona'));
+    }
+
+    public function edit(Persona $persona)
     {
         $categorias = Categoria::all();
         $personas   = Persona::all();
         return view('editarPersona', compact('persona', 'categorias', 'personas'));
     }
 
-    public function eliminar(Persona $persona)
+    public function update(Request $request, Persona $persona)
     {
-        $persona->delete();
-        return redirect('/listadoPersonas');
-    }
-
-    public function modificar(Request $request, Persona $persona)
-    {
-
         $valorEstrella = $request->estrella;
 
         if($valorEstrella == 1){
@@ -70,6 +68,12 @@ class PersonaController extends Controller
         $persona->telefono      = $request->telefono;
         $persona->categoria_id  = $request->categoria_id;
         $persona->save();
-        return redirect('/listadoPersonas');
+        return redirect('personas');
+    }
+
+    public function destroy(Persona $persona)
+    {
+        $persona->delete();
+        return redirect('personas');
     }
 }

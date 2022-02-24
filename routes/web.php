@@ -27,6 +27,11 @@ Route::get('/precargar-datos', function () {
 
 });
 
+Route::resource('categorias',   CategoriaController::class);
+Route::resource('personas'  ,   PersonaController::class);
+
+
+/*
 Route::get  ('/listadoCategorias',          [CategoriaController::class, 'listadoCategorias'])->name('listadoCategorias');
 Route::get  ('/categoria',                  [CategoriaController::class, 'anadir']);
 Route::post ('/categoria',                  [CategoriaController::class, 'crear']);
@@ -40,3 +45,4 @@ Route::post ('/persona',                    [PersonaController::class, 'crear'])
 Route::get  ('/persona/{persona}',          [PersonaController::class, 'editar']);
 Route::put ('/persona/{persona}',           [PersonaController::class, 'modificar']);
 Route::delete ('/persona/{persona}',        [PersonaController::class, 'eliminar']);
+*/

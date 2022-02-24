@@ -1,24 +1,25 @@
 <x-layout>
     <x-menu></x-menu>
-    <h1>Lista categorías</h1>
-    <a href="/categoria">Crear nueva categoría</a>
-    <table>
-        <th>Nombre</th>
-        <th></th>
+    <div style="padding-left: 2%">
+        <h1>Lista categorías</h1>
+        <a href="{{ route('categorias.create') }}">Crear nueva categoría</a>
+        <table>
+            <th>Nombre</th>
+            <th></th>
 
-        @foreach ($categorias as $categoria)
-        <tr>
-            <td><a href="/categoria/{{$categoria->id}}">{{$categoria->nombre}}</a></td>
-            <td>
-                <form method="post" action="/categoria/{{$categoria->id}}">
-                    @method('DELETE')
-                    <input type="hidden" name="id"          value="{{$categoria->id}}">
-                    <input type="submit" name="eliminar"    value="Eliminar">
-                    {{ csrf_field() }}
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </table>
+            @foreach ($categorias as $categoria)
+            <tr>
+                <td><a href="{{ route('categorias.show', $categoria) }}">{{$categoria->nombre}}</a></td>
+                <td>
+                    <form method="post" action="{{ route('categorias.destroy', $categoria) }}">
+                        @method('DELETE')
+                        @csrf
+                        <input type="submit" name="eliminar" value="Eliminar">
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
     <x-footer> </x-footer>
 </x-layout>
